@@ -41,7 +41,6 @@ class SeaController extends AbstractController
             $basseMaree = trim($dataTide->eq(10)->text());
             // on va maintenant ajouter 12 h car data récupérées au format 12h et non 24h
             $hauteMareeArr = explode(':',$hauteMaree);
-            dump($hauteMareeArr);
             if(intval($hauteMareeArr[0]) < 12){
                 $hauteMaree = (intval($hauteMareeArr[0])+12).':'.$hauteMareeArr[1];
             }
