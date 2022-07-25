@@ -52,6 +52,9 @@ class SeaController extends AbstractController
             $hauteMaree = trim($dataTide->eq(1)->text());
             $basseMaree = trim($dataTide->eq(4)->text());
         }
+
+        $infoMaree = $this->getTideInfo($basseMaree,$hauteMaree);
+
         $debug = [];
 //        foreach ($dataTide as $domElement) {
 //            $debug[] = $domElement->nodeValue;
@@ -63,8 +66,69 @@ class SeaController extends AbstractController
                 'wave_max' => $waveMax,
                 'maree_haute' => $hauteMaree,
                 'maree_basse' => $basseMaree,
+                'sens_maree' => $infoMaree['sens_maree'],
+                'ratio_maree' => $infoMaree['ratio_maree'],
                 'ville' => 'Guidel'
             ]
         ]);
+    }
+
+    private function getTideInfo($basseMaree,$hauteMaree)
+    {
+        $hauteMareeOn5 = substr('0'.$hauteMaree,-5);
+        $basseMareeOn5 = substr('0'.$basseMaree,-5);
+
+        $basseMareeFirst = $hauteMareeOn5 > $basseMareeOn5;
+
+        $now = date('H:i');
+        if($basseMareeFirst){
+            if($now < $basseMareeOn5){
+                $sens = 'down';
+                $heureFin = $basseMaree;
+                $offset = false;
+            } elseif($now < $hauteMareeOn5){
+                $sens = 'up';
+                $heureFin = $hauteMaree;
+                $offset = false;
+            } else {
+                $sens = 'down';
+                $heureFin = $basseMaree;
+                $offset = true;
+            }
+        } else {
+            if($now < $hauteMareeOn5){
+                $sens = 'up';
+                $heureFin = $hauteMaree;
+                $offset = false;
+            } elseif ($now < $basseMareeOn5){
+                $sens = 'down';
+                $heureFin = $basseMaree;
+                $offset = false;
+            } else {
+                $sens = 'up';
+                $heureFin = $hauteMaree;
+                $offset = true;
+            }
+        }
+        $heureFinSplit = explode(':',$heureFin);
+        $flatHour = $heureFinSplit[0]*60 + $heureFinSplit[1];
+
+        if($offset){
+            // Dans ce cas on ajoute 12h20
+            $flatHour += 12*60 + 20;
+            $minute = $flatHour % 60;
+            $heure = $flatHour - $minute / 60;
+            $heureFin = $heure.':'.substr('0'.$minute,-2);
+        }
+
+        $nowFlat = date('H')*60 + date('i');
+
+        $difference = $flatHour - $nowFlat;
+        $ratio = round(((370 - $difference) / 370) * 100,0);
+
+        return [
+            'sens_maree' => $sens,
+            'ratio_maree' => $ratio
+        ];
     }
 }
