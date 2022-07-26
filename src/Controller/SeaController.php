@@ -122,7 +122,7 @@ class SeaController extends AbstractController
         $nowFlat = date('H')*60 + date('i');
 
         $difference = $flatHour - $nowFlat;
-        $ratio = round(((370 - $difference) / 370) * 360,0);
+        $ratio = 360 - round(((370 - $difference) / 370) * 360,0);
 
         return [
             'sens_maree' => $sens,
