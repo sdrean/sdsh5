@@ -61,15 +61,13 @@ class SeaController extends AbstractController
 //        }
         return new JsonResponse([
             'status' => 'success',
-            'data' => [
-                'wave_min' => $waveMin,
-                'wave_max' => $waveMax,
-                'maree_haute' => $hauteMaree,
-                'maree_basse' => $basseMaree,
-                'sens_maree' => $infoMaree['sens_maree'],
-                'ratio_maree' => $infoMaree['ratio_maree'],
-                'ville' => 'Guidel'
-            ]
+            'wave_min' => $waveMin,
+            'wave_max' => $waveMax,
+            'maree_haute' => $hauteMaree,
+            'maree_basse' => $basseMaree,
+            'sens_maree' => $infoMaree['sens_maree'],
+            'ratio_maree' => $infoMaree['ratio_maree'],
+            'ville' => 'Guidel'
         ]);
     }
 
