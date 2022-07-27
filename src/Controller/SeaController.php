@@ -67,6 +67,7 @@ class SeaController extends AbstractController
             'maree_basse' => $basseMaree,
             'sens_maree' => $infoMaree['sens_maree'],
             'ratio_maree' => $infoMaree['ratio_maree'],
+            'next_maree' => $infoMaree['next_maree'],
             'ville' => 'Guidel'
         ]);
     }
@@ -84,10 +85,12 @@ class SeaController extends AbstractController
                 $sens = 'down';
                 $heureFin = $basseMaree;
                 $offset = false;
+                $nextMaree = $basseMaree;
             } elseif($now < $hauteMareeOn5){
                 $sens = 'up';
                 $heureFin = $hauteMaree;
                 $offset = false;
+                $nextMaree = $hauteMaree;
             } else {
                 $sens = 'down';
                 $heureFin = $basseMaree;
@@ -98,10 +101,12 @@ class SeaController extends AbstractController
                 $sens = 'up';
                 $heureFin = $hauteMaree;
                 $offset = false;
+                $nextMaree = $hauteMaree;
             } elseif ($now < $basseMareeOn5){
                 $sens = 'down';
                 $heureFin = $basseMaree;
                 $offset = false;
+                $nextMaree = $basseMaree;
             } else {
                 $sens = 'up';
                 $heureFin = $hauteMaree;
@@ -117,6 +122,7 @@ class SeaController extends AbstractController
             $minute = $flatHour % 60;
             $heure = $flatHour - $minute / 60;
             $heureFin = $heure.':'.substr('0'.$minute,-2);
+            $nextMaree = $heureFin;
         }
 
         $nowFlat = date('H')*60 + date('i');
@@ -126,7 +132,8 @@ class SeaController extends AbstractController
 
         return [
             'sens_maree' => $sens,
-            'ratio_maree' => $ratio
+            'ratio_maree' => $ratio,
+            'next_maree' => $nextMaree
         ];
     }
 }
