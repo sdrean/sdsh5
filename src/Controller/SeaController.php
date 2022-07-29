@@ -84,6 +84,7 @@ class SeaController extends AbstractController
         $basseMareeFirst = $hauteMareeOn5 > $basseMareeOn5;
 
         $now = date('H:i');
+
         if($basseMareeFirst){
             if($now < $basseMareeOn5){
                 $sens = 'down';
@@ -124,7 +125,7 @@ class SeaController extends AbstractController
             // Dans ce cas on ajoute 12h20
             $flatHour += 12*60 + 20;
             $minute = $flatHour % 60;
-            $heure = $flatHour - $minute / 60;
+            $heure = (($flatHour - $minute) / 60) % 24;
             $heureFin = $heure.':'.substr('0'.$minute,-2);
             $nextMaree = $heureFin;
         }
