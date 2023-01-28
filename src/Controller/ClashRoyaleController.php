@@ -68,8 +68,12 @@ class ClashRoyaleController extends AbstractController
 
         return new JsonResponse([
             'valid' => true,
-            'data' => $result['currentDeck'],
-            'all' => $result
+            'cards' => $result['currentDeck'],
+            'player' => [
+                'name' => $result['name'],
+                'clan' => $result['clan']['name'],
+                'trophies' => $result['trophies']
+            ]
         ]);
     }
 }
