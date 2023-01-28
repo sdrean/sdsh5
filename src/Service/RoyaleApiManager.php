@@ -63,7 +63,7 @@ class RoyaleApiManager
             $return[] = [
                 'player' => $player,
                 'tag' => $tag,
-                'clan' => (count($listeA)> 1 ? trim(strstr('#',$listeA->eq(1)->text(),true)):'Pas de clan')
+                'clan' => (count($listeA)> 1 ? trim(strstr($listeA->eq(1)->text(),'#',true)):'Pas de clan')
             ];
         });
 
