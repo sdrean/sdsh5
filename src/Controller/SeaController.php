@@ -35,6 +35,32 @@ class SeaController extends AbstractController
         $hauteMaree = '--';
         $basseMaree = '--';
         $isAfterNoon = date('H') > 11;
+$denug = [];
+$nbBloc = 0;
+        foreach($dataTide as $index=>$node){
+            $isType = $index % 3 === 0;
+            $isHour = $index % 3 === 1;
+            if($isType){
+                $nbBloc++;
+                $tmp = [
+                    'type' => $node->nodeValue,
+                    'heure' => ''
+                ];
+            }
+            if($isHour){
+                $hourArr = explode(':',$node->nodeValue);
+                list($hour,$minute) = $hourArr;
+                if($nbBloc === 1 && $hour = 12){
+                    $hour = 0;
+                } elseif($nbBloc > 2 && $hour < 12){
+                    $hour += 12;
+                }
+                $tmp['heure'] = $hour.':'.$minute;
+                $debug[] = $tmp;
+            }
+            //$debug[] = $node->nodeValue;
+        }
+        dump($debug);
 
         if($isAfterNoon){
             $hauteMaree = trim($dataTide->eq(7)->text());
