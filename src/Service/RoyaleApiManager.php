@@ -36,7 +36,7 @@ class RoyaleApiManager
         $return = [];
 
         $liste->each(function(Crawler $user,$index) use (&$return){
-            $tmp = $user->filter('div')->eq(1);
+            $tmp = $user->filter('div')->eq(2);
             file_put_contents(__DIR__.'/../../var/log/cr.txt',count($tmp).' - '.$tmp->text());
             /*
                 <div>
