@@ -28,7 +28,7 @@ class RoyaleApiManager
 
         $url = 'https://royaleapi.com/player/search/results?q='.$data['q'];
         $content = file_get_contents($url,false,$context);
-        file_put_contents(__DIR__.'/../../var/log/cr.txt',$content);
+
         $crawler = new Crawler($content);
 
         $liste = $crawler->filter('div.player_search_results__result_container');
@@ -37,6 +37,7 @@ class RoyaleApiManager
 
         $liste->each(function(Crawler $user,$index) use (&$return){
             $tmp = $user->filter('div')->eq(1);
+            file_put_contents(__DIR__.'/../../var/log/cr.txt',count($tmp).' - '.$tmp->text());
             /*
                 <div>
                     <a class="header" href="/player/989JJP09Y">
