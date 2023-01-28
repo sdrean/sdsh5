@@ -36,8 +36,10 @@ class RoyaleApiManager
         $return = [];
 
         $liste->each(function(Crawler $user,$index) use (&$return){
-            $tmp = $user->filter('div')->eq(2);
-            file_put_contents(__DIR__.'/../../var/log/cr.txt',count($tmp).' - '.$tmp->text());
+            $tmp = $user->filter('div');
+            file_put_contents(__DIR__.'/../../var/log/cr.txt',
+                count($tmp).' - '.$tmp->eq(0)->text().' - '.$tmp->eq(1)->text(),
+                FILE_APPEND);
             /*
                 <div>
                     <a class="header" href="/player/989JJP09Y">
