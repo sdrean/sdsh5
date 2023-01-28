@@ -31,6 +31,10 @@ class RoyaleApiManager
         file_put_contents(__DIR__.'/../../var/log/cr.txt',$content);
         $crawler = new Crawler($content);
 
+        $liste = $crawler->filter('div.player_search_results__result_container');
+
+        return ['nb' => count($liste)];
+/*
         $hrefList = $crawler->filter('tr.result > td');
 
         $return = [];
@@ -51,6 +55,7 @@ class RoyaleApiManager
             }
         }
         return $return;
+        */
     }
 
     public function getCurrentDeck($data)
