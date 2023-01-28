@@ -64,7 +64,8 @@ class RoyaleApiManager
                 'player' => $player,
                 'tag' => $tag,
                 'clan' => (count($listeA)> 1 ?
-                    trim(str_replace([chr(10),chr(13)],'',strstr($listeA->eq(1)->text(),'#',true))):
+                    //trim(str_replace([chr(10),chr(13)],'',strstr($listeA->eq(1)->text(),'#',true))):
+                    trim(strstr(str_replace([chr(10),chr(13)],'',$listeA->eq(1)->text()),'#',true)):
                     'Pas de clan')
             ];
         });
