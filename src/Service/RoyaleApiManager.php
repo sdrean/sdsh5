@@ -33,6 +33,29 @@ class RoyaleApiManager
 
         $liste = $crawler->filter('div.player_search_results__result_container');
 
+        $return = [];
+
+        $liste->each(function(Crawler $user,$index) use (&$return){
+            $tmp = $user->filter('div')->eq(1);
+            /*
+                <div>
+                    <a class="header" href="/player/989JJP09Y">
+                        AshtaxYT
+                    </a>
+                    <div class="player_tag">#989JJP09Y</div>
+                    <a href="/clan/QQCRLGPU" class="meta">
+                        kaiju bricks yt&nbsp;&nbsp;#QQCRLGPU
+                    </a>
+                </div>
+
+             */
+            $listeA = $tmp->filter('a');
+            $return[] = [
+                'player' => $listeA->eq(0)->text(),
+                'clan' => $listeA->eq(1)->text()
+            ];
+        });
+
         return ['nb' => count($liste)];
 /*
         $hrefList = $crawler->filter('tr.result > td');
