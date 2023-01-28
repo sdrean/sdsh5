@@ -38,7 +38,7 @@ class RoyaleApiManager
         $liste->each(function(Crawler $user,$index) use (&$return){
             $tmp = $user->filter('div');
             file_put_contents(__DIR__.'/../../var/log/cr.txt',
-                count($tmp).' - '.$tmp->eq(0)->text().' - '.$tmp->eq(1)->text(),
+                count($tmp).' - '.$tmp->eq(0)->text().' - '.$tmp->eq(1)->text().PHP_EOL,
                 FILE_APPEND);
             /*
                 <div>
