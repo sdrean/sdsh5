@@ -71,8 +71,7 @@ class RoyaleApiManager
         });
 
         return [
-            'nb' => count($return),
-            'liste' => $return
+            $return
         ];
 /*
         $hrefList = $crawler->filter('tr.result > td');
