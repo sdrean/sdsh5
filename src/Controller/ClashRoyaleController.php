@@ -71,7 +71,9 @@ class ClashRoyaleController extends AbstractController
             'cards' => $result['currentDeck'],
             'player' => [
                 'name' => $result['name'],
-                'clan' => $result['clan']['name'],
+                'clan' => array_key_exists('clan', $result) && array_key_exists('name',$result['clan']) ?
+                    $result['clan']['name']:
+                    'Pas de clan',
                 'trophies' => $result['trophies']
             ]
         ]);
