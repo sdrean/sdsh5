@@ -34,13 +34,9 @@ class RoyaleApiManager
         $liste = $crawler->filter('div.player_search_results__result_container');
 
         $return = [];
-        file_put_contents(__DIR__.'/../../var/log/cr.txt','');
+
         $liste->each(function(Crawler $user,$index) use (&$return){
             $tmp = $user->filter('div');
-            file_put_contents(__DIR__.'/../../var/log/cr.txt',
-                count($tmp).' - '.$tmp->eq(0)->text().' - '.$tmp->eq(1)->text().
-                ' - '.$tmp->eq(2)->text().PHP_EOL,
-                FILE_APPEND);
             /*
                 <div>
                     <a class="header" href="/player/989JJP09Y">
@@ -70,9 +66,7 @@ class RoyaleApiManager
             ];
         });
 
-        return [
-            $return
-        ];
+        return $return;
 /*
         $hrefList = $crawler->filter('tr.result > td');
 
