@@ -56,7 +56,7 @@ class RoyaleApiManager
             $listeA = $tmp->filter('a');
             $return[] = [
                 'player' => $listeA->eq(0)->text(),
-                'clan' => $listeA->eq(1)->text()
+                'clan' => (count($listeA)> 1 ? $listeA->eq(1)->text():'Pas de clan')
             ];
         });
 
