@@ -27,7 +27,9 @@ class RoyaleApiManager
         $context = stream_context_create($opts);
 
         $url = 'https://royaleapi.com/player/search/results?q='.$data['q'];
-        $crawler = new Crawler(file_get_contents($url,false,$context));
+        $content = file_get_contents($url,false,$context);
+        file_put_contents(__DIR__.'/../../var/log/cr.txt',$content);
+        $crawler = new Crawler($content);
 
         $hrefList = $crawler->filter('tr.result > td');
 
