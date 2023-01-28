@@ -53,9 +53,16 @@ class RoyaleApiManager
                 </div>
 
              */
+            $listeDiv = $tmp->filter('div');
             $listeA = $tmp->filter('a');
+            $player = $listeA->eq(0)->text();
+            $tag = $listeDiv->last()->text();
+            if(count($listeDiv) > 1){
+                $player = str_replace($listeDiv->eq(0)->text(),'',$player);
+            }
             $return[] = [
-                'player' => $listeA->eq(0)->text(),
+                'player' => $player,
+                'tag' => $tag,
                 'clan' => (count($listeA)> 1 ? $listeA->eq(1)->text():'Pas de clan')
             ];
         });
